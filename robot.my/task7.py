@@ -1,32 +1,16 @@
 import robot
 r = robot.rmap()
 r.lm('task7')
-
 def task():
-
+	pass
+	while r.freeLeft()or r.freeUp():
+		if r.freeUp():
+			r.up();
+		if r.freeLeft():
+			r.left();
+	r.down(3);
+	r.right(4);
+	while not r.freeUp():
+		r.paint();
+		r.right();
 r.start(task)
-i=0
-while r.freeDown():
-    r.right()
-while not r.freeDown() and r.freeRight():
-    i=i+1
-    r.right()
-if i>1:
-    if r.freeDown():
-        r.down()
-        r.right(i)
-        r.paint(i)
-    else:
-        r.left(i)
-        r.down()
-        r.right(i)
-        r.paint(i)
-else :
-    while r.freeLeft():
-        r.left()
-if r.freeDown():
-    r.down()
-else:
-    while not r.freeDown():
-        r.right()
-    r.down
