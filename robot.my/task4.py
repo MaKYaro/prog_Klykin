@@ -11,25 +11,14 @@ def task():
     r.left()
     for x in range(5):
         r.paint()
-        r.down()
-        r.down()
+        for down in range(2):
+            r.down()
         r.paint()
-        r.down()
-        r.down()
+        for down in range(2):
+            r.down()
         r.paint()
         r.left()
-        r.up()
-        r.up()
-        r.up()
-
-
-
-
-
-
-
-
-
-
-
+        for up in range(3):
+            r.up()
+            
 r.start(task)
