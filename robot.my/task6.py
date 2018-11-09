@@ -43,8 +43,13 @@ def task():
             for w in range(x//2):
                 r.right()
                 r.paint()
+<<<<<<< HEAD
 
 
 
 
+=======
+                
+                
+>>>>>>> 8afefbe62300179eeb3bd0b3ff88f7686558258d
 r.start(task)

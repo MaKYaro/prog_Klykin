@@ -20,6 +20,7 @@ def task():
         r.left()
         for up in range(3):
             r.up()
+<<<<<<< HEAD
 
 
 
@@ -32,4 +33,7 @@ def task():
 
 
 
+=======
+            
+>>>>>>> 8afefbe62300179eeb3bd0b3ff88f7686558258d
 r.start(task)

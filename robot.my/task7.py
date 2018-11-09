@@ -13,6 +13,7 @@ def task():
 	while not r.freeUp():
 		r.paint();
 		r.right();
+<<<<<<< HEAD
 r.start(task)
 
 
@@ -56,3 +57,6 @@ r.start(task)
 #blue - синий
 #yellow - желтый
 #green - зеленый
+=======
+r.start(task)
+>>>>>>> 8afefbe62300179eeb3bd0b3ff88f7686558258d
