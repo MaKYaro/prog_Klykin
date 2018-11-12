@@ -10,18 +10,24 @@ class Cannon:
     max_velocity = 100
 
 
-    def __init__(self, x, y, canvas):
+    def __init__(self, canvas):
         self.canvas = canvas
-        self.x = x
-        self.y = y
+        self.x = x = -30
+        self.y = y = 550
         self.shell_num = None  # TODO: оставшееся на данный момент количество снарядов
         self.direction = math.pi/4
         self.power = 2
         self.power_speed = 0
-
-        self.line_length = 100
-        self.line = canv.create_line(x + 70, y - 50, 160, 480, width=30, fill="black")
-        self.oval = canv.create_oval(x, y, 100, 500, outline="black", fill="black")
+        self.cannon_diametr = 80
+        self.line_length = 80
+        self.line = canv.create_line(x + 30, y + 30,
+                                     x + 110,
+                                     y + 110,
+                                     width=20, fill="red")
+        self.oval = canv.create_oval(x, y,
+                                     x + self.cannon_diametr,
+                                     y + self.cannon_diametr,
+                                     outline="black", fill="black")
 
 
     def aim(self, x, y):
@@ -35,7 +41,7 @@ class Cannon:
 
         self.direction = math.atan((self.y - y)/(self.x - x))
 
-        self.draw()
+        self.draw(self.x + 40, self.y + 40)
 
 
     def fire(self):
@@ -50,26 +56,33 @@ class Cannon:
         print(self.start_time)
         self.time_length = self.stop_time - self.start_time
         self.power_speed = (self.power * self.time_length)/3
-        shell = Shell(self.x + 70 + self.line_length*math.cos(self.direction),
-                      self.y - 50 + self.line_length*math.sin(self.direction),
+        shell = Shell(self.x + 40 + self.line_length*math.cos(self.direction),
+                      self.y + 40 + self.line_length*math.sin(self.direction),
                       self.power_speed, self.power_speed, self.canvas, self.direction)
 
         shells.append(shell)
         print(self.time_length)
 
-    def draw(self):
+    def draw(self, x_gun, y_gun):
         """
         Рисует дуло пушки, которое движется в зависимости от перемещений мышки
         :return:
         """
+        global y_end
         self.canvas.delete(self.line)
-
+        x_start = x_gun + math.cos(self.direction)*self.cannon_diametr/8
+        y_start = y_gun + math.sin(self.direction) * self.cannon_diametr / 8
+        x_end = x_gun + self.line_length*math.cos(self.direction)
+        y_end = y_gun + self.line_length*math.sin(self.direction)
         self.line = self.canvas.create_line(
-            self.x + 70,
-            self.y - 50,
-            self.x + 70 + self.line_length*math.cos(self.direction),
-            self.y - 50 + self.line_length*math.sin(self.direction), width=30, fill="black"
+            x_start,
+            y_start,
+            x_end,
+            y_end, width=20, fill="red"
         )
+        if y_end > 500:
+            y_end = 500
+
 
 
 
@@ -115,7 +128,10 @@ class Shell:
 
         self.draw()
 
-        # TODO: Уничтожать (в статус deleted) снаряд, когда он касается земли.
+        if self.y > 600:
+            self.canvas.delete(self.oval)
+        if self.x > 800:
+            self.Vx = -self.Vx
 
 
     def draw(self):
@@ -230,7 +246,7 @@ canv.bind("<ButtonPress-1>", time_start)
 canv.bind("<ButtonRelease-1>", time_stop)
 shells = []
 
-cannon = Cannon(70, 550, canv)
+cannon = Cannon(canv)
 
 tick()
 root.mainloop()
