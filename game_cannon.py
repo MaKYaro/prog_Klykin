@@ -1,4 +1,5 @@
 import math
+import random
 from tkinter import *
 import time
 
@@ -14,9 +15,9 @@ class Cannon:
         self.canvas = canvas
         self.x = x = -30
         self.y = y = 550
-        self.shell_num = None  # TODO: оставшееся на данный момент количество снарядов
+        self.shell_num = 1
         self.direction = math.pi/4
-        self.power = 2
+        self.power = 0
         self.power_speed = 0
         self.cannon_diametr = 80
         self.line_length = 80
@@ -41,7 +42,7 @@ class Cannon:
 
         self.direction = math.atan((self.y - y)/(self.x - x))
 
-        self.draw(self.x + 40, self.y + 40)
+        self.draw(self.x+40, self.y+40)
 
 
     def fire(self):
@@ -52,8 +53,6 @@ class Cannon:
         :param dt:  длительность клика мышки, мс
         :return: экземпляр снаряда типа Shell
         """
-        print(self.stop_time)
-        print(self.start_time)
         self.time_length = self.stop_time - self.start_time
         self.power_speed = (self.power * self.time_length)/3
         shell = Shell(self.x + 40 + self.line_length*math.cos(self.direction),
@@ -61,7 +60,6 @@ class Cannon:
                       self.power_speed, self.power_speed, self.canvas, self.direction)
 
         shells.append(shell)
-        print(self.time_length)
 
     def draw(self, x_gun, y_gun):
         """
@@ -80,11 +78,6 @@ class Cannon:
             x_end,
             y_end, width=20, fill="red"
         )
-        if y_end > 500:
-            y_end = 500
-
-
-
 
 
 class Shell:
@@ -188,7 +181,6 @@ class Target:
 
         pass  # TODO
 
-
 def mouse_move_handler(event):
     """
     Направляет дуло пушки в сторону курсора
@@ -234,17 +226,28 @@ def time_stop(event):
     cannon.fire()
     time_counter = 0
 
+def power_maker(event):
+        cannon.power = 2 * power_scale.get()
 
 root = Tk()
 fr = Frame(root)
-root.geometry('800x600')
+root.geometry('800x700')
 canv = Canvas(root, bg='white')
 canv.pack(fill=BOTH, expand=1)
+
+power_scale = Scale(root, orient=HORIZONTAL,
+                length=300,
+                from_=0, to=10, tickinterval=1, resolution=1, width=5)
+power_scale.pack()
+power_scale.set(1)
 
 canv.bind('<Motion>', mouse_move_handler)
 canv.bind("<ButtonPress-1>", time_start)
 canv.bind("<ButtonRelease-1>", time_stop)
+power_scale.bind("<Motion>", power_maker)
 shells = []
+
+
 
 cannon = Cannon(canv)
 
