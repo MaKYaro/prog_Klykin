@@ -1,17 +1,22 @@
 import turtle
-t1=turtle.Turtle()
+t1 = turtle.Turtle()
 t1.shape('turtle')
 
-def circle_l(L:float, N:int):
+
+def circle_l(length: float, number: int):
     """Рисует окрудность с поворотом влево"""
-    for step in range(N):
-        t1.forward(L)
-        t1.left(360/N)
-def circle_r(L:float, N:int):
+    for step in range(number):
+        t1.forward(length)
+        t1.left(360/number)
+
+
+def circle_r(length: float, number: int):
     """Рисует окрудность с поворотом вправо"""
-    for step in range(N):
-        t1.forward(L)
-        t1.right(360/N)
+    for step in range(number):
+        t1.forward(length)
+        t1.right(360/number)
+
+
 circle_l(2, 100)
 circle_r(2, 100)
 t1.left(60)

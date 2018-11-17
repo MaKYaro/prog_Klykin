@@ -1,8 +1,11 @@
-n = int(input("Введите номер: "))
-def fib(n):
-    if n < 2:
-        return n
-    else:
-        return fib(n-2)+fib(n-1)
+number_get = int(input("Введите номер: "))
 
-print(fib(7))
+
+def fib(number):
+    if number < 2:
+        return number
+    else:
+        return fib(number-2)+fib(number-1)
+
+
+print(fib(number_get))

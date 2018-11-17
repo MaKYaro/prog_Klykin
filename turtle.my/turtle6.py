@@ -1,21 +1,26 @@
 import turtle
-t1=turtle.Turtle()
+t1 = turtle.Turtle()
 t1.shape('turtle')
-L=20
-N=2
-def prop_polyg(L: float, N: int):
+length_get = 20
+number_get = 2
+
+
+def prop_polygon(length: float, number: int):
     """Рисует правильный N-угольник со стороной L"""
-    t1.left(180-180*(N-2)/N/2)
-    t1.forward(L)
-    for engle in range(N-1):
-        t1.left(360/N)
-        t1.forward(L)
+    t1.left(180-180*(number-2)/number/2)
+    t1.forward(length)
+
+    for angle in range(number-1):
+        t1.left(360/number)
+        t1.forward(length)
+
+
 for fig in range(10):
-    L+=4
-    N+=1
+    length_get += 4
+    number_get += 1
     t1.pendown()
-    prop_polyg(L, N)
-    t1.right(180*(N-2)/N/2)
+    prop_polygon(length_get, number_get)
+    t1.right(180*(number_get-2)/number_get/2)
     t1.penup()
-    t1.forward(L/4)
+    t1.forward(length_get/4)
 
