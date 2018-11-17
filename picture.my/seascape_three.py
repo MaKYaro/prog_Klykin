@@ -1,16 +1,22 @@
 import graphics as gr
 
 window = gr.GraphWin("First seascape", 500, 500)
+
+
 def dr_sky():
     sky = gr.Line(gr.Point(0, 100), gr.Point(500, 100))
     sky.setWidth(300)
     sky.setOutline('grey')
     sky.draw(window)
+
+
 def dr_sea():
     sea = gr.Line(gr.Point(0, 500), gr.Point(500, 500))
     sea.setWidth(500)
     sea.setOutline('blue')
     sea.draw(window)
+
+
 def dr_wave():
     wave1 = gr.Line(gr.Point(50, 400), gr.Point(300, 400))
     wave1.setOutline('white')
@@ -43,6 +49,8 @@ def dr_wave():
     wave8 = gr.Line(gr.Point(200, 375), gr.Point(450, 375))
     wave8.setOutline('white')
     wave8.draw(window)
+
+
 def dr_ship_one():
     ship1 = gr.Line(gr.Point(230, 400), gr.Point(375, 400))
     ship1.setWidth(18)
@@ -75,6 +83,8 @@ def dr_ship_one():
     sail = gr.Oval(gr.Point(290, 385), gr.Point(320, 310))
     sail.setFill('white')
     sail.draw(window)
+
+
 def dr_ship_two():
     ship1 = gr.Line(gr.Point(130, 300), gr.Point(275, 300))
     ship1.setWidth(18)
@@ -107,6 +117,8 @@ def dr_ship_two():
     sail = gr.Oval(gr.Point(190, 285), gr.Point(220, 210))
     sail.setFill('white')
     sail.draw(window)
+
+
 def dr_cloud1():
     cloud1 = gr.Circle(gr.Point(0, 20), 40)
     cloud1.setFill('white')
@@ -123,6 +135,8 @@ def dr_cloud1():
     cloud4 = gr.Circle(gr.Point(40, 50), 30)
     cloud4.setFill('white')
     cloud4.draw(window)
+
+
 def dr_cloud2():
     cloud5 = gr.Circle(gr.Point(500, 50), 60)
     cloud5.setFill('white')
@@ -131,6 +145,8 @@ def dr_cloud2():
     cloud6 = gr.Circle(gr.Point(450, 20), 30)
     cloud6.setFill('white')
     cloud6.draw(window)
+
+
 dr_sky()
 dr_sea()
 dr_wave()
