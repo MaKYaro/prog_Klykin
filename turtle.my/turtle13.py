@@ -67,7 +67,7 @@ if number_get == 1:
 elif number_get == 2:
     length_get = length_get/4
     min2(length_get)
-elif n == 3:
+elif number_get == 3:
     length_get = length_get/10
     min3(length_get)
 else:
