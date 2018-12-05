@@ -17,7 +17,6 @@ def levi1(length: float):
 
 def levi2(length: float):
     t1.left(45)
-    levi1(length)
     t1.forward(length)
     t1.right(90)
     t1.forward(length)
@@ -33,10 +32,10 @@ def levi3(length: float):
 
 if number_get == 1:
     levi1(length_get)
-elif n == 2:
+elif number_get == 2:
     length_get = length_get/4
     levi2(length_get)
-elif n == 3:
+elif number_get == 3:
     length_get = length_get/10
     levi3(length_get)
 else:

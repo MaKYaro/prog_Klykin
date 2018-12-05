@@ -1,11 +1,18 @@
 import turtle
-t1 = turtle.Turtle()
-t1.shape('turtle')
-number_get = int(input("Введите n:"))
-length_get = 100
-t1.penup()
-t1.goto(-200, 0)
-t1.pendown()
+
+
+
+def foo(l, r):
+    if r > 2:
+        t1.forward(l)
+        return
+    foo(l/3, r+1)
+    t1.left(60)
+    foo(l/3, r+1)
+    t1.right(120)
+    foo(l/3, r+1)
+    t1.left(60)
+    foo(l/3, r+1)
 
 
 def koh1(length: float):
@@ -41,18 +48,26 @@ def koh3(length: float):
     koh2(length)
 
 
-if number_get == 1:
-    koh1(length_get)
-elif number_get == 2:
-    length_get = length_get/4
-    koh2(length_get)
-elif number_get == 3:
-    length_get = length_get/10
-    koh3(length_get)
-else:
-    print("Невозможно")
+t1 = turtle.Turtle()
+t1.shape('turtle')
+# number_get = int(input("Введите n:"))
+# length_get = 100
+# t1.penup()
+# t1.goto(-200, 0)
+# t1.pendown()
+#
+# if number_get == 1:
+#     koh1(length_get)
+# elif number_get == 2:
+#     length_get = length_get/4
+#     koh2(length_get)
+# elif number_get == 3:
+#     length_get = length_get/10
+#     koh3(length_get)
+# else:
+#     print("Невозможно")
 
-
+foo(100, 0)
 
 
 

@@ -18,36 +18,46 @@ def dr_sea():
 
 
 def dr_wave():
-    line_coords_list = [gr.Point(50, 400), gr.Point(300, 400),
-                        gr.Point(100, 450), gr.Point(150, 450),
-                        gr.Point(300, 300), gr.Point(400, 300),
-                        gr.Point(10, 350), gr.Point(210, 350),
-                        gr.Point(10, 300), gr.Point(110, 300),
-                        gr.Point(200, 450), gr.Point(400, 450),
-                        gr.Point(300, 425), gr.Point(425, 425),
-                        gr.Point(200, 375), gr.Point(450, 375)]
+    line_coords_list = [[[50, 400], [300, 400]],
+                        [[100, 450], [150, 450]],
+                        [[300, 300], [400, 300]],
+                        [[10, 350], [210, 350]],
+                        [[10, 300], [110, 300]],
+                        [[200, 450], [400, 450]],
+                        [[300, 425], [425, 425]],
+                        [[200, 375], [450, 375]]]
 
-    while len(line_coords_list) != 0:
 
-        wave = gr.Line(line_coords_list.pop(0), line_coords_list.pop(0))
+    for number in range(len(line_coords_list)):
+
+        a = line_coords_list[number - 1]
+        x = a[0]
+        y = a[1]
+        wave = gr.Line(gr.Point(x[0], x[1]), gr.Point(y[0], y[1]))
         wave.setOutline('white')
         wave.draw(window)
 
 
 def dr_ship():
-    list_brown_boards_coords = [gr.Point(230, 400), gr.Point(375, 400),
-                                gr.Point(240, 418), gr.Point(365, 418),
-                                gr.Point(250, 436), gr.Point(355, 436)]
-    list_black_lines_coords = [gr.Point(240, 409), gr.Point(365, 409),
-                               gr.Point(240, 427), gr.Point(365, 427)]
-    while len(list_brown_boards_coords) != 0:
-        ship_brown_line = gr.Line(list_brown_boards_coords.pop(0), list_brown_boards_coords.pop(0))
+    list_brown_boards_coords = [[[230, 400], [375, 400]],
+                                [[240, 418], [365, 418]],
+                                [[250, 436], [355, 436]]]
+    list_black_lines_coords = [[[240, 409], [365, 409]],
+                               [[240, 427], [365, 427]]]
+    for number in range(len(list_brown_boards_coords)):
+        a = list_brown_boards_coords[number - 1]
+        x = a[0]
+        y = a[1]
+        ship_brown_line = gr.Line(gr.Point(x[0], x[1]), gr.Point(y[0], y[1]))
         ship_brown_line.setWidth(18)
         ship_brown_line.setOutline('brown')
         ship_brown_line.draw(window)
 
-    while len(list_black_lines_coords) != 0:
-        ship_black_line = gr.Line(list_black_lines_coords.pop(0), list_black_lines_coords.pop(0))
+    for number in range(len(list_black_lines_coords)):
+        a = list_black_lines_coords[number - 1]
+        x = a[0]
+        y = a[1]
+        ship_black_line = gr.Line(gr.Point(x[0], x[1]), gr.Point(y[0], y[1]))
         ship_black_line.setOutline('black')
         ship_black_line.draw(window)
 
@@ -56,21 +66,35 @@ def dr_ship():
     mast.setOutline('brown')
     mast.draw(window)
 
-    sail = gr.Oval(gr.Point(290, 385), gr.Point(320, 310))
-    sail.setFill('white')
-    sail.draw(window)
+
+def dr_sail():
+    list_sail_coords = [[[302, 385], [302, 300], [370, 385]],
+                        [[298, 385], [298, 300], [250, 385]]]
+    for number in range(len(list_sail_coords)):
+        a = list_sail_coords[number - 1]
+        x = a[0]
+        y = a[1]
+        z = a[2]
+
+        sail = gr.Polygon(gr.Point(x[0], x[1]), gr.Point(y[0], y[1]), gr.Point(z[0], z[1]))
+        sail.setFill('white')
+        sail.draw(window)
 
 
-def dr_cloud1():
-    list_cloud_coords = [gr.Point(0, 20), 40,
-                         gr.Point(70, 20), 46,
-                         gr.Point(10, 60), 22,
-                         gr.Point(40, 50), 30,
-                         gr.Point(500, 50), 60,
-                         gr.Point(450, 20), 30]
-    while len(list_cloud_coords) != 0:
-        cloud = gr.Circle(list_cloud_coords.pop(0), list_cloud_coords.pop(0))
+def dr_cloud():
+    list_cloud_coords = [[[0, 20], 40],
+                         [[70, 20], 46],
+                         [[10, 60], 22],
+                         [[40, 50], 30],
+                         [[500, 50], 60],
+                         [[450, 20], 30]]
+    for number in range(len(list_cloud_coords)):
+
+        a = list_cloud_coords[number - 1]
+        c = a[0]
+        cloud = gr.Circle(gr.Point(c[0], c[1]), a[1])
         cloud.setFill('white')
+        cloud.setOutline('white')
         cloud.draw(window)
 
 
@@ -79,6 +103,7 @@ dr_sea()
 dr_wave()
 dr_ship()
 dr_cloud()
+dr_sail()
 
 
 window.getMouse()
