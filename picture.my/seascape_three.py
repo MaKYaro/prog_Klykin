@@ -27,7 +27,6 @@ def dr_wave():
                         [[300, 425], [425, 425]],
                         [[200, 375], [450, 375]]]
 
-
     for number in range(len(line_coords_list)):
 
         a = line_coords_list[number - 1]
