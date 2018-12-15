@@ -4,7 +4,7 @@ from hero import *
 
 def input_check(message=''):
     answer = None
-    while answer == None:
+    while answer is None:
         try:
             answer = int(input(message))
         except ValueError:
@@ -14,24 +14,24 @@ def input_check(message=''):
 
 def game_tournament(hero, dragon_list):
     for dragon in dragon_list:
-        print('Твой сопреник - ', dragon._color, 'дракон!')
+        print('Твой сопреник - ', dragon.color, 'дракон!')
         while dragon.is_alive() and hero.is_alive():
             print('Вопрос:', dragon.question())
             answer = input_check('Ответ:\n')
 
             if dragon.check_answer(answer):
                 hero.attack(dragon)
-                print('Верно!)
+                print('Верно!')
             else:
                 dragon.attack(hero)
                 print('Ошибка! \nБудь внимательнее!')
         if dragon.is_alive():
             break
-        print('Дракон', dragon._color, 'повержен!\n')
+        print('Дракон', dragon.color, 'повержен!\n')
 
     if hero.is_alive():
         print('Поздравляем! Вы победили!')
-        print('Ваш накопленный опыт:', hero._experience)
+        print('Ваш накопленный опыт:', hero.experience)
     else:
         print('К сожалению, Вы проиграли...')
 

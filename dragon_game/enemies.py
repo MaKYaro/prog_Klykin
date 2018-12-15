@@ -26,7 +26,7 @@ class Dragon(Enemy):
     def check_answer(self, answer):
         """
         Проверяет ответ игрока
-        :param player_answer: ответ игрока
+        :param answer: ответ игрока
         :return: Value
         """
         return answer == self.__answer
@@ -34,9 +34,9 @@ class Dragon(Enemy):
 
 class GreenDragon(Dragon):
     def __init__(self):
-        self._health = 200
-        self._attack = 10
-        self._color = 'зелёный'
+        self.health = 200
+        self.attack = 10
+        self.color = 'зелёный'
         __quest = 0
 
     def question(self):
@@ -49,9 +49,9 @@ class GreenDragon(Dragon):
 
 class RedDragon(Dragon):
     def __init__(self):
-        self._health = 200
-        self._attack = 10
-        self._color = 'красный'
+        self.health = 200
+        self.attack = 10
+        self.color = 'красный'
         __quest = 0
 
     def question(self):
@@ -64,9 +64,9 @@ class RedDragon(Dragon):
 
 class BlackDragon(Dragon):
     def __init__(self):
-        self._health = 200
-        self._attack = 10
-        self._color = 'чёрный'
+        self.health = 200
+        self.attack = 10
+        self.color = 'чёрный'
         __quest = 0
 
     def question(self):

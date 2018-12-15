@@ -3,10 +3,10 @@ from gameunit import *
 
 class Hero(Attacker):
     def __init__(self, name):
-        self._health = 100
-        self._attack = 50
-        self._name = name
-        self._experience = 0
+        self.health = 100
+        self.attack = 50
+        self.name = name
+        self.experience = 0
 
     def attack(self, target):
         """
@@ -14,5 +14,5 @@ class Hero(Attacker):
         :param target: сопеник
         :return: измененные target._health, self.experience
         """
-        target._health -= self._attack
-        self._experience += target._attack
+        target.health -= self.attack
+        self.experience += target.attack

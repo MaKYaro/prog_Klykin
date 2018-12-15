@@ -1,8 +1,8 @@
 class Attacker:
     """Общий класс для всех объектов игры"""
-    _health = None
-    _attack = None
-    _answer = None
+    health = None
+    attack = None
+    answer = None
 
     def attack(self, target):
         """
@@ -10,7 +10,7 @@ class Attacker:
         :param target: соперник
         :return: Value
         """
-        target._health -= self._attack
+        target.health -= self.attack
 
     def is_alive(self):
         """
@@ -18,4 +18,4 @@ class Attacker:
         :return: Value
         """
 
-        return self._health > 0
+        return self.health > 0
