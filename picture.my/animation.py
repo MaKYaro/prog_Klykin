@@ -1,5 +1,5 @@
 import graphics as gr
-import time
+from time import sleep
 
 window = gr.GraphWin("First seascape", 500, 500)
 
@@ -35,10 +35,8 @@ def dr_wave():
         wave.draw(window)
 
 
-class Ship:
-
-    #def dr_ship():
-    def __init__(self, x_coord, y_coord):
+def dr_ship(x_coord, y_coord):
+        ship = []
         for coord in((x_coord, y_coord), (x_coord + 145, y_coord)), \
                     ((x_coord + 10, y_coord + 18), (x_coord + 135, y_coord + 18)), \
                     ((x_coord + 20, y_coord + 36), (x_coord + 125, y_coord + 36)):
@@ -48,6 +46,7 @@ class Ship:
             ship_brown_line.setWidth(18)
             ship_brown_line.setOutline('brown')
             ship_brown_line.draw(window)
+            ship.append(ship_brown_line)
 
         for coord in ((x_coord + 10, y_coord + 9), (x_coord + 135, y_coord + 9)), \
                      ((x_coord + 10, y_coord + 27), (x_coord + 135, y_coord + 27)):
@@ -56,13 +55,14 @@ class Ship:
             ship_black_line = gr.Line(gr.Point(x[0], x[1]), gr.Point(y[0], y[1]))
             ship_black_line.setOutline('black')
             ship_black_line.draw(window)
+            ship.append(ship_black_line)
 
         mast = gr.Line(gr.Point(x_coord + 70, y_coord), gr.Point(x_coord + 70, y_coord - 100))
         mast.setWidth(5)
         mast.setOutline('brown')
         mast.draw(window)
+        ship.append(mast)
 
-    #def dr_sail():
         for coord in ((x_coord + 72, y_coord - 15), (x_coord + 72, y_coord - 100), (x_coord + 140, y_coord - 15)), \
                      ((x_coord + 68, y_coord - 15), (x_coord + 68, y_coord - 100), (x_coord + 20, y_coord - 15)):
             x = coord[0]
@@ -72,6 +72,8 @@ class Ship:
             sail = gr.Polygon(gr.Point(x[0], x[1]), gr.Point(y[0], y[1]), gr.Point(z[0], z[1]))
             sail.setFill('white')
             sail.draw(window)
+            ship.append(sail)
+        return ship
 
 
 def dr_cloud():
@@ -89,19 +91,16 @@ def dr_cloud():
         cloud.draw(window)
 
 
-def move_ship():
-    ship = Ship()
-    for i in range(390):
-        ship.move(1, 0)
-        time.sleep(0.1)
-
-
 def main():
     dr_sky()
     dr_sea()
     dr_wave()
     dr_cloud()
-    ship = Ship(50, 50)
+    a = dr_ship(200, 400)
+    for step in range(0, 100, 1):
+        for i in a:
+            i.move(5, 0)
+        sleep(0.1)
     window.getMouse()
 
 
