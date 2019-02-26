@@ -27,8 +27,10 @@ class Ball:
     def speed_change_strait(self, angle, globe):
         self.change_x = self.change_x * math.cos(angle) + self.change_y * math.sin(angle)
         self.change_y = -self.change_x * math.sin(angle) + self.change_y * math.cos(angle)
+
         globe.change_x = globe.change_x * math.cos(angle) + globe.change_y * math.sin(angle)
         globe.change_y = -globe.change_x * math.sin(angle) + globe.change_y * math.cos(angle)
+
         variable = self.change_x
         self.change_x = globe.change_x
         globe.change_x = variable
@@ -39,17 +41,29 @@ class Ball:
 
     def speed_change_after_wall(self):
         if self.y > SCREEN_HEIGHT - BALL_SIZE or self.y < BALL_SIZE:
+            while self.y > SCREEN_HEIGHT - BALL_SIZE or self.y < BALL_SIZE:
+                self.y -= self.change_y
             self.change_y *= -1
         if self.x > SCREEN_WIDTH - BALL_SIZE or self.x < BALL_SIZE:
+            while self.x > SCREEN_WIDTH - BALL_SIZE or self.x < BALL_SIZE:
+                self.x -= self.change_x
             self.change_x *= -1
 
     def coords_change(self):
         self.x += self.change_x
         self.y += self.change_y
 
-    #def push_apart(self, globe):
-     #   distance_cc = math.sqrt((self.x - globe.x) ** 2 + (self.y - globe.y) ** 2)
+    def push_apart(self, globe):
+        distance_cc = math.sqrt((self.x - globe.x) ** 2 + (self.y - globe.y) ** 2)
+        while distance_cc < 2 * BALL_SIZE:
+            self.x -= self.change_x
+            self.y -= self.change_y
 
+            globe.x += -globe.change_x
+            globe.y += -globe.change_y
+            #print("No")
+
+            distance_cc = math.sqrt((self.x - globe.x) ** 2 + (self.y - globe.y) ** 2)
 
 
 def main():
@@ -79,19 +93,30 @@ def main():
 
             ball.coords_change()
             ball.speed_change_after_wall()
+
             for globe in ball_list:
+                if globe == ball:
+                    continue
                 distance_cc = math.sqrt((ball.x - globe.x) ** 2 + (ball.y - globe.y) ** 2)
+
                 if distance_cc <= 2 * BALL_SIZE:
+                    #print(distance_cc)
+                    ball.push_apart(globe)
                     leg_1 = globe.y - ball.y
                     leg_2 = globe.x - ball.x
+
                     if leg_2 == 0:
+                        print("leg_2")
                         variable = ball.change_y
                         ball.change_y = globe.change_y
                         globe.change_y = variable
+
                     elif leg_1 == 0:
+                        print("leg_1")
                         variable = ball.change_x
                         ball.change_x = globe.change_x
                         globe.change_x = variable
+
                     else:
                         angle = math.atan(leg_1 / leg_2)
                         ball.speed_change_strait(angle, globe)
