@@ -2,7 +2,6 @@ import pygame
 import random
 import math
 
-# Define some colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
@@ -19,18 +18,38 @@ class Ball:
         self.change_x = 0
         self.change_y = 0
 
+        self.x = random.randrange(BALL_SIZE, SCREEN_WIDTH - BALL_SIZE)
+        self.y = random.randrange(BALL_SIZE, SCREEN_HEIGHT - BALL_SIZE)
 
-def make_ball():
+        self.change_x = 1
+        self.change_y = 1
 
-    ball = Ball()
+    def speed_change_strait(self, angle, globe):
+        self.change_x = self.change_x * math.cos(angle) + self.change_y * math.sin(angle)
+        self.change_y = -self.change_x * math.sin(angle) + self.change_y * math.cos(angle)
+        globe.change_x = globe.change_x * math.cos(angle) + globe.change_y * math.sin(angle)
+        globe.change_y = -globe.change_x * math.sin(angle) + globe.change_y * math.cos(angle)
+        variable = self.change_x
+        self.change_x = globe.change_x
+        globe.change_x = variable
 
-    ball.x = random.randrange(BALL_SIZE, SCREEN_WIDTH - BALL_SIZE)
-    ball.y = random.randrange(BALL_SIZE, SCREEN_HEIGHT - BALL_SIZE)
+    def speed_change_back(self, angle):
+        self.change_x = math.ceil(self.change_x * math.cos(angle) - self.change_y * math.sin(angle))
+        self.change_y = math.ceil(self.change_x * math.sin(angle) + self.change_y * math.cos(angle))
 
-    ball.change_x = random.randrange(-2, 3)
-    ball.change_y = random.randrange(-2, 3)
+    def speed_change_after_wall(self):
+        if self.y > SCREEN_HEIGHT - BALL_SIZE or self.y < BALL_SIZE:
+            self.change_y *= -1
+        if self.x > SCREEN_WIDTH - BALL_SIZE or self.x < BALL_SIZE:
+            self.change_x *= -1
 
-    return ball
+    def coords_change(self):
+        self.x += self.change_x
+        self.y += self.change_y
+
+    #def push_apart(self, globe):
+     #   distance_cc = math.sqrt((self.x - globe.x) ** 2 + (self.y - globe.y) ** 2)
+
 
 
 def main():
@@ -45,7 +64,7 @@ def main():
     ball_list = []
 
     for number in range(2):
-        ball = make_ball()
+        ball = Ball()
         ball_list.append(ball)
     while not done:
         for event in pygame.event.get():
@@ -53,20 +72,16 @@ def main():
                 done = True
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    ball = make_ball()
+                    ball = Ball()
                     ball_list.append(ball)
 
         for ball in ball_list:
-            ball.x += ball.change_x
-            ball.y += ball.change_y
 
-            if ball.y > SCREEN_HEIGHT - BALL_SIZE or ball.y < BALL_SIZE:
-                ball.change_y *= -1
-            if ball.x > SCREEN_WIDTH - BALL_SIZE or ball.x < BALL_SIZE:
-                ball.change_x *= -1
+            ball.coords_change()
+            ball.speed_change_after_wall()
             for globe in ball_list:
                 distance_cc = math.sqrt((ball.x - globe.x) ** 2 + (ball.y - globe.y) ** 2)
-                if 0 < distance_cc <= 2 * BALL_SIZE + 1:
+                if distance_cc <= 2 * BALL_SIZE:
                     leg_1 = globe.y - ball.y
                     leg_2 = globe.x - ball.x
                     if leg_2 == 0:
@@ -79,24 +94,16 @@ def main():
                         globe.change_x = variable
                     else:
                         angle = math.atan(leg_1 / leg_2)
-                        ball.change_x = ball.change_x * math.cos(angle) + ball.change_y * math.sin(angle)
-                        ball.change_y = -ball.change_x * math.sin(angle) + ball.change_y * math.cos(angle)
-                        globe.change_x = globe.change_x * math.cos(angle) + globe.change_y * math.sin(angle)
-                        globe.change_y = -globe.change_x * math.sin(angle) + globe.change_y * math.cos(angle)
-                        variable = ball.change_x
-                        ball.change_x = globe.change_x
-                        globe.change_x = variable
-                        ball.change_x = math.ceil(ball.change_x * math.cos(angle) - ball.change_y * math.sin(angle))
-                        ball.change_y = math.ceil(ball.change_x * math.sin(angle) + ball.change_y * math.cos(angle))
-                        globe.change_x = math.ceil(globe.change_x * math.cos(angle) - globe.change_y * math.sin(angle))
-                        globe.change_y = math.ceil(globe.change_x * math.sin(angle) + globe.change_y * math.cos(angle))
+                        ball.speed_change_strait(angle, globe)
+                        ball.speed_change_back(angle)
+                        globe.speed_change_back(angle)
 
         screen.fill(BLACK)
 
         for ball in ball_list:
             pygame.draw.circle(screen, WHITE, [ball.x, ball.y], BALL_SIZE)
 
-        clock.tick(40)
+        clock.tick(200)
 
         pygame.display.flip()
 
